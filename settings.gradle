@@ -18,6 +18,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
+//comment
 rootProject.name = "MusicPlayer"
 include ':app'
