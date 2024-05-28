@@ -99,21 +99,13 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 //adding list
-    private List<MediaItem> getMediaItems() {
-        //define a list of media items
-        List<MediaItem>mediaItems=new ArrayList<>();
-
-        for(Song song :songs){
-            MediaItem mediaItem=new MediaItem.Builder()
-                    .setUri(song.getUri())
-                    .setMediaMetadata(getMetadata(song))
-                    .build();
-
-            //add the media item to media items list
-            mediaItems.add(mediaItem);
-        }
-        return mediaItems;
+private List<MediaItem> getMediaItems() {
+    List<MediaItem> mediaItems = new ArrayList<>();
+    for (Song song : songs) {
+        mediaItems.add(MediaItemFactory.createMediaItem(song));
     }
+    return mediaItems;
+}
 
     private MediaMetadata getMetadata(Song song) {
         return new MediaMetadata.Builder()
