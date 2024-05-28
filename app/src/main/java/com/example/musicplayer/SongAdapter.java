@@ -98,7 +98,7 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     }
-
+//adding list
     private List<MediaItem> getMediaItems() {
         //define a list of media items
         List<MediaItem>mediaItems=new ArrayList<>();
