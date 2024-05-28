@@ -131,13 +131,12 @@
             android:id="@+id/skipPreviousBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:padding="@dimen/sm"
             app:drawableStartCompat="@drawable/ic_skip_previous"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/playPauseBtn" />
+            app:layout_constraintEnd_toStartOf="@id/playPauseBtn"
+            android:layout_marginStart="@dimen/sm"
+            android:padding="@dimen/sm"/>
 
         <TextView
             android:id="@+id/playPauseBtn"
