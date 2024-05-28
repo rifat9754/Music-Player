@@ -16,6 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
+
+        maven {url 'https://jitpack.io'} //for third party dependencies
     }
 }
 //comment
