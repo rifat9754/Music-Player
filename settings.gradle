@@ -21,6 +21,6 @@ dependencyResolutionManagement {
         maven {url 'https://jitpack.io'} //for third party dependencies
     }
 }
-
+//comment
 rootProject.name = "MusicPlayer"
 include ':app'

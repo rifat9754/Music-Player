@@ -1,4 +1,5 @@
-package com.example.musicplayer;
+
+ package com.example.musicplayer;
 
 import android.Manifest;
 import android.content.ContentUris;
@@ -52,8 +53,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MainActivity extends AppCompatActivity {
-
+// comment for main activity
+    // arju
     private static final String TAG = "MainActivity";
+    // arju 3
 
     // Members
     RecyclerView recyclerView;
@@ -546,3 +549,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
