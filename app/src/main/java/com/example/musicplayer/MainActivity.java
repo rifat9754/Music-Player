@@ -181,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void playerControls() {
         // Song name marquee
         songNameView.setSelected(true);
@@ -362,6 +364,8 @@ public class MainActivity extends AppCompatActivity {
             player.stop();
         }
         player.release();
+
+
     }
 
     private void userResponses() {
@@ -374,6 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 // Use alert dialog
                 new AlertDialog.Builder(this)
                         .setTitle("Requesting Permission")
+
                         .setMessage("Allow us to fetch songs on your device")
                         .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
                             @Override
@@ -549,4 +554,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
 
