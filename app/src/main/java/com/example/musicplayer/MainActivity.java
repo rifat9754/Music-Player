@@ -80,6 +80,7 @@
             if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
                 // Fetch songs
                 //fetch songs
+                // fetch
                 fetchSongs();
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (shouldShowRequestPermissionRationale(permission)) {
