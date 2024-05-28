@@ -1,4 +1,5 @@
-package com.example.musicplayer;
+
+ package com.example.musicplayer;
 
 import android.Manifest;
 import android.content.ContentUris;
@@ -34,7 +35,8 @@ import java.util.Objects;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MainActivity extends AppCompatActivity {
-
+// comment for main activity
+    // arju
     private static final String TAG = "MainActivity";
 
     // Members
@@ -259,3 +261,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
