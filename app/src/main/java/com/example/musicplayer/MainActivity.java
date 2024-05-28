@@ -1,11 +1,12 @@
-
- package com.example.musicplayer;
+package com.example.musicplayer;
 
 import android.Manifest;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MainActivity extends AppCompatActivity {
-// comment for main activity
+    // comment for main activity
     // arju
     private static final String TAG = "MainActivity";
     // arju 3
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 userResponsesOnRecordAudioperm();
             }
-            
+
         });
 
 //view
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             storagePermissionLauncher.launch(permission);
         }
     }
-
+    // adding  COMMENT
     private void playerControls() {
         // Song name marquee
         songNameView.setSelected(true);
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                     player.play();
                 }
 
-         }
+            }
 
             @Override
             public void onPlaybackStateChanged(int playbackState) {
@@ -258,6 +259,94 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //skip to next track
+
+        skipNextBtn.setOnClickListener(view -> skipToNextSong());
+        homeSkipNextBtn.setOnClickListener(view ->skipToNextSong());
+
+        //skip to previous track
+        skipPreviousBtn.setOnClickListener(view -> skipToPreviousSong());
+        homeSkipPreviousBtn.setOnClickListener(view ->skipToPreviousSong());
+
+        //play or pause the player
+        playPauseBtn.setOnClickListener(view ->playOrPausePlayer());
+        homePlayPauseBtn.setOnClickListener(view -> playOrPausePlayer());
+
+        //seek bar listener
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressValue=0;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progressValue=seekBar.getProgress();
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if(player.getPlaybackState()==ExoPlayer.STATE_READY){
+                    seekBar.setProgress(progressValue);
+                    progressView.setText(getReadableTime(progressValue));
+                    player.seekTo(progressValue);
+                }
+
+            }
+        });
+
+        //repeat mode
+        repeatModeBtn.setOnClickListener(view -> {
+            if(repeatMode==1){
+                //repeat one
+                player.setRepeatMode(ExoPlayer.REPEAT_MODE_ONE);
+                repeatMode=2;
+                repeatModeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_repeat_one,0,0,0);
+            }else if(repeatMode==2){
+                //shuffle all
+                player.setShuffleModeEnabled(true);
+                player.setRepeatMode(ExoPlayer.REPEAT_MODE_ALL);
+                repeatMode=3;
+                repeatModeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_shuffle,0,0,0);
+            } else if (repeatMode==3) {
+                //repeat all
+                player.setRepeatMode(ExoPlayer.REPEAT_MODE_ALL);
+                player.setShuffleModeEnabled(false);
+                repeatMode=1;
+                repeatModeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_repeat_all,0,0,0);
+            }
+            //update colors
+            updatePlayerColors();
+        });
+    }
+
+    private void playOrPausePlayer() {
+        if(player.isPlaying()){
+            player.pause();
+            playPauseBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_outline1,0,0,0);
+            homePlayPauseBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play,0,0,0);
+            artworkView.clearAnimation();
+        }else{
+            player.play();
+            playPauseBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pause_outline1,0,0,0);
+            homePlayPauseBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pause,0,0,0);
+            artworkView.startAnimation(loadRotation());
+        }
+        //update player colors
+        updatePlayerColors();
+    }
+
+    private void skipToPreviousSong() {
+        if(player.hasPreviousMediaItem()){
+            player.seekToPrevious();
+        }
+    }
+    private void skipToNextSong() {
+        if(player.hasNextMediaItem()){
+            player.seekToNext();
+        }
     }
 
     private void updatePlayerPositionProgress() {
@@ -269,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
                     seekbar.setProgress((int) player.getCurrentPosition());
                 }
 
-               // repeat calling method
+                // repeat calling method
                 updatePlayerPositionProgress();
                 //load the artwork animation
 
@@ -311,6 +400,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updatePlayerColors() {
+        BitmapDrawable bitmapDrawable= (BitmapDrawable) artworkView.getDrawable();
+        if(bitmapDrawable==null){
+            bitmapDrawable= (BitmapDrawable) ContextCompat.getDrawable(this,R.drawable.default_artwork);
+        }
+
+        assert bitmapDrawable != null;
+        Bitmap bmp=bitmapDrawable.getBitmap();
+
+        //set bitmap to blur image view
+        blurImageView.setImageBitmap(bmp);
+        blurImageView.setBlur(4);
 
     }
     private void showPlayerView() {
@@ -535,19 +635,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void filterSongs(String query) {
-        List<Song> filteredList=new ArrayList<>();
+        List<Song> filteredList = new ArrayList<>();
 
-        if(allSongs.size()>0){
-            for(Song song:allSongs){
-                if(song.getTitle().toLowerCase().contains(query)){
+        if (allSongs.size() > 0) {
+            for (Song song : allSongs) {
+                if (song.getTitle().toLowerCase().contains(query)) {
                     filteredList.add(song);
                 }
             }
-            if(songAdapter!=null){
+            if (songAdapter != null) {
                 songAdapter.filterSongs(filteredList);
             }
         }
     }
 }
-
-//okay
