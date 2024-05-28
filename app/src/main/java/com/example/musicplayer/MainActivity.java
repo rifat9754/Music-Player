@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 // comment for main activity
     // arju
     private static final String TAG = "MainActivity";
+    // arju 3
 
     // Members
     RecyclerView recyclerView;
