@@ -8,6 +8,7 @@ public class Song {
     Uri uri;
     Uri artworkUri;
     int size;
+
     int duration;
 
     //constructor

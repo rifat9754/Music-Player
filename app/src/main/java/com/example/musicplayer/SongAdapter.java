@@ -27,10 +27,10 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     List<Song> songs;
     ExoPlayer player;
-
     ConstraintLayout playerView;
 
     //constructor
+
 
 
     public SongAdapter(Context context, List<Song> songs,ExoPlayer player,ConstraintLayout playerView) {

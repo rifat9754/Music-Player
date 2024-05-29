@@ -515,7 +515,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mediaStoreUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         }
-
         // Define projection
         String[] projection = new String[]{
                 MediaStore.Audio.Media._ID,
@@ -526,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         // Order
-        String sortOrder = MediaStore.Audio.Media.DATE_ADDED + " DESC";
+         String sortOrder = MediaStore.Audio.Media.DATE_ADDED + " DESC";
 
         // Get the songs
         try (Cursor cursor = getContentResolver().query(mediaStoreUri, projection, null, null, sortOrder)) {
@@ -547,9 +546,9 @@ public class MainActivity extends AppCompatActivity {
                     long albumId = cursor.getLong(albumColumn);
 
                     // Song uri
-                    Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+                     Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
 
-                    // Album artwork uri
+                      // Album artwork uri
                     Uri albumArtworkUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumId);
 
                     // Remove .mp3 extension from the song's name
@@ -557,7 +556,7 @@ public class MainActivity extends AppCompatActivity {
                         name = name.substring(0, name.lastIndexOf("."));
                     }
 
-                    // Song items
+                      // Song items
                     Song song = new Song(name, uri, albumArtworkUri, size, duration);
 
                     // Add song item to song list
@@ -579,11 +578,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No Songs", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Save songs
         allSongs.clear();
         allSongs.addAll(songs);
-
         // Update the toolbar title
         String title = getResources().getString(R.string.app_name) + " - " + songs.size();
         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
@@ -620,8 +617,6 @@ public class MainActivity extends AppCompatActivity {
 
         //search song method
         SearchSong(searchView);
-
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -633,7 +628,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter songs
@@ -642,10 +636,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void filterSongs(String query) {
         List<Song> filteredList = new ArrayList<>();
-
         if (allSongs.size() > 0) {
             for (Song song : allSongs) {
                 if (song.getTitle().toLowerCase().contains(query)) {

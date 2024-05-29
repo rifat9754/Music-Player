@@ -4,7 +4,6 @@ import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.MediaMetadata;
 
 public class MediaItemFactory {
-
     public static MediaItem createMediaItem(Song song) {
         return new MediaItem.Builder()
                 .setUri(song.getUri())

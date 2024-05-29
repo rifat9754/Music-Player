@@ -9,7 +9,6 @@ import com.google.android.exoplayer2.MediaMetadata;
 public class ExoPlayerProxy {
     private ExoPlayer exoPlayer;
     private Context context;
-
     public ExoPlayerProxy(Context context) {
         this.context = context;
         this.exoPlayer = new ExoPlayer.Builder(context).build(); // Actual player instance
