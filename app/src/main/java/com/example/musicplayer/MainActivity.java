@@ -180,13 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //<<<<<<< HEAD
-//
-//
-//
-//=======
-//    // adding  COMMENT
-//>>>>>>> origin/main
+
     private void playerControls() {
         // Song name marquee
         songNameView.setSelected(true);
@@ -383,7 +377,7 @@ public class MainActivity extends AppCompatActivity {
         return rotateAnimation;
     }
 
-    String getReadableTime(int duration) {
+    static String getReadableTime(int duration) {
         String time;
         int hrs = duration / (1000 * 60 * 60);
         int min = (duration % (1000 * 60 * 60)) / (1000 * 60);
@@ -664,10 +658,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-//<<<<<<< HEAD
-//}
-//
-//
-//=======
-//}
-//>>>>>>> origin/main
+
