@@ -36,8 +36,7 @@ public class SongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public SongAdapter(Context context, List<Song> songs,ExoPlayer player,ConstraintLayout playerView) {
         this.context = context;
         this.songs = songs;
-        PlayerSingleton.getInstance(context);
-
+        this.player=player;
         this.playerView=playerView;
 }
 
